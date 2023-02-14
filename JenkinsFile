@@ -42,7 +42,6 @@ pipeline{
         
             }
         }
-        stage()
     }
     post{
         success{
