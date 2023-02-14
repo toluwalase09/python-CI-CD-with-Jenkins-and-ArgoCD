@@ -12,10 +12,20 @@ pipeline {
                 sh 'pip install -r requirements.txt'
             }
         }
-       
+        stage('Run tests') {
+            when {
+                expression { return true }
+            }
+            steps {
+                sh 'export PATH=$PATH:/var/lib/jenkins/.local/lib/python3.8/site-packages'
+                sh 'pytest'
+            }
+        }
         stage('Build package') {
             steps {
-                sh 'python3 main.py'
+                timeout(time: 2, unit: 'MINUTES') {
+                    sh 'python main.py'
+                }
             }
         }
         stage('Deploy package') {
