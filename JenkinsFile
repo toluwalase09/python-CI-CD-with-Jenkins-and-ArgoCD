@@ -13,9 +13,11 @@ pipeline {
             }
         }
         stage('Run tests') {
-            steps {
-                sh 'export PATH=$PATH:/var/lib/jenkins/.local/lib/python3.8/site-packages'
-                sh 'pytest'
+             steps {
+                script {
+                    sh "export PATH=$PATH:/var/lib/jenkins/.local/bin"
+                    sh "pytest tests/"
+                }
             }
         }
         stage('Build package') {
