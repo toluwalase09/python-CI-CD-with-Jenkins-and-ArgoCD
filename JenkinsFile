@@ -14,7 +14,7 @@ pipeline {
         }
         stage('Run tests') {
             steps {
-                sh 'export PATH=$PATH:var/lib/jenkins/.local/bin'
+                sh 'export PATH=$PATH:/var/lib/jenkins/.local/bin'
                 sh 'pytest'
             }
         }
