@@ -14,7 +14,7 @@ pipeline {
         }
         stage('Run tests') {
             steps {
-                sh 'export PATH=$PATH:/home/ubuntu/.local/bin'
+                sh 'export PATH=$PATH:home/ubuntu/.local/lib/python3.8/site-packages'
                 sh 'pytest'
             }
         }
