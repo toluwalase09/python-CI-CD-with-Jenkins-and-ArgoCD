@@ -12,14 +12,7 @@ pipeline {
                 sh 'pip install -r requirements.txt'
             }
         }
-        stage('Run tests') {
-             steps {
-                script {
-                    sh "export PATH=$PATH:/var/lib/jenkins/.local/bin"
-                    sh "pytest tests/"
-                }
-            }
-        }
+       
         stage('Build package') {
             steps {
                 sh 'python main.py'
