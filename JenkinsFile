@@ -10,11 +10,12 @@ pipeline{
         stage("git repo checkout"){
             steps{
                 echo "====++++git repo checkout++++===="
-                // script{
-                    
-                // }
-                git credentialsId: 'github-access', url: 'https://github.com/njokuifeanyigerald/python-CI-CD-with-Jenkins-and-ArgoCD.git'
-                // git branch: 'master', credentialsId: 'github-access-tokon', url: 'https://github.com/njokuifeanyigerald/python-CI-CD-with-Jenkins-and-ArgoCD.git'
+                script{
+                    git branch: 'master', 
+                    credentialsId: 'github-access-tokon', 
+                    url: 'https://github.com/njokuifeanyigerald/python-CI-CD-with-Jenkins-and-ArgoCD.git'
+                }
+                
             }   
             post{
                 success{
