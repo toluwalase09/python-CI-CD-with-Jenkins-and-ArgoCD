@@ -20,7 +20,7 @@ pipeline {
         }
         stage('Build package') {
             steps {
-                sh 'python setup.py sdist bdist_wheel'
+                sh 'python main.py'
             }
         }
         stage('Deploy package') {
