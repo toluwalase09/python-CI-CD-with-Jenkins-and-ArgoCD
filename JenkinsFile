@@ -1,55 +1,33 @@
-pipeline{
+pipeline {
     agent any
-    environment {
-        DOCKERHUB_USERNAME= 'bopgeek'
-        APP_NAME = 'flaskArgoCD'
-        IMAGE_TAG =  "${BUILD_NUMBER}"
-        IMAGE_NAME = "${DOCKERHUB_USERNAME}" + "/" +'${APP_NAME}'
-    }
-    stages{
-        stage("git repo checkout"){
-            steps{
-                echo "====++++git repo checkout++++===="
-                script{
-                    git branch: 'master', 
-                    credentialsId: 'github-access-tokon', 
-                    url: 'https://github.com/njokuifeanyigerald/python-CI-CD-with-Jenkins-and-ArgoCD.git'
-                }
-                
-            }   
-            post{
-                success{
-                    echo "========git repo checkout executed successfully========"
-                }
-                failure{
-                    echo "========git repo checkout execution failed========"
-                }
+    
+    stages {
+        stage('Clone repository') {
+            steps {
+                git branch: 'master', url: 'https://github.com/your-repo-url'
             }
         }
-        stage("cleaning the workspace"){
-            steps{
-                echo "====++++executing cleaning the workspace++++===="
-                script{
-                    cleanWs()
-                }
-            }
-            post{
-                success{
-                    echo "====++++cleaning the workspace executed successfully++++===="
-                }
-                failure{
-                    echo "====++++cleaning the workspace execution failed++++===="
-                }
-        
+        stage('Install dependencies') {
+            steps {
+                sh 'pip install -r requirements.txt'
             }
         }
-    }
-    post{
-        success{
-            echo "========pipeline executed successfully ========"
+        stage('Run tests') {
+            steps {
+                sh 'pytest'
+            }
         }
-        failure{
-            echo "========pipeline execution failed========"
+        stage('Build package') {
+            steps {
+                sh 'python setup.py sdist bdist_wheel'
+            }
+        }
+        stage('Deploy package') {
+            steps {
+                withCredentials([sshUserPrivateKey(credentialsId: 'my-ssh-creds', keyFileVariable: 'SSH_KEY', passphraseVariable: '', usernameVariable: 'SSH_USER')]) {
+                    sh 'scp -i $SSH_KEY dist/* $SSH_USER@my-server:/path/to/destination'
+                }
+            }
         }
     }
 }
