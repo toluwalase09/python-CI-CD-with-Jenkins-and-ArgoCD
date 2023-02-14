@@ -1,0 +1,55 @@
+pipeline{
+    agent any
+    environment {
+        DOCKERHUB_USERNAME= 'bopgeek'
+        APP_NAME = 'flaskArgoCD'
+        IMAGE_TAG =  "${BUILD_NUMBER}"
+        IMAGE_NAME = "${DOCKERHUB_USERNAME}" + "/" +'${APP_NAME}'
+    }
+    stages{
+        stage("git repo checkout"){
+            steps{
+                echo "====++++git repo checkout++++===="
+                // script{
+                    
+                // }
+                git credentialsId: 'github-access', url: 'https://github.com/njokuifeanyigerald/python-CI-CD-with-Jenkins-and-ArgoCD'
+                // git branch: 'master', credentialsId: 'github-access-tokon', url: 'https://github.com/njokuifeanyigerald/python-CI-CD-with-Jenkins-and-ArgoCD.git'
+            }   
+            post{
+                success{
+                    echo "========git repo checkout executed successfully========"
+                }
+                failure{
+                    echo "========git repo checkout execution failed========"
+                }
+            }
+        }
+        stage("cleaning the workspace"){
+            steps{
+                echo "====++++executing cleaning the workspace++++===="
+                script{
+                    cleanWs()
+                }
+            }
+            post{
+                success{
+                    echo "====++++cleaning the workspace executed successfully++++===="
+                }
+                failure{
+                    echo "====++++cleaning the workspace execution failed++++===="
+                }
+        
+            }
+        }
+        stage()
+    }
+    post{
+        success{
+            echo "========pipeline executed successfully ========"
+        }
+        failure{
+            echo "========pipeline execution failed========"
+        }
+    }
+}
