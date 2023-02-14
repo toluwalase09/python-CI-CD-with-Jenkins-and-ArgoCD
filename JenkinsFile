@@ -15,7 +15,7 @@ pipeline {
        
         stage('Build package') {
             steps {
-                sh 'python main.py'
+                sh 'python3 main.py'
             }
         }
         stage('Deploy package') {
