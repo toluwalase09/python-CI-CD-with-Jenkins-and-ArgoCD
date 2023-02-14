@@ -3,8 +3,8 @@ pipeline {
     
     stages {
         stage('Clone repository') {
-            steps {
-                git branch: 'master', url: 'https://github.com/your-repo-url'
+            steps {t
+                git branch: 'master', url: 'https://github.com/cloudboostauk/python-CI-CD-with-Jenkins-and-ArgoCD.git'
             }
         }
         stage('Install dependencies') {
