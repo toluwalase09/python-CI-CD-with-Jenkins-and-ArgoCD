@@ -13,7 +13,7 @@ pipeline{
                 // script{
                     
                 // }
-                git credentialsId: 'github-access', url: 'https://github.com/njokuifeanyigerald/python-CI-CD-with-Jenkins-and-ArgoCD'
+                git credentialsId: 'github-access', url: 'https://github.com/njokuifeanyigerald/python-CI-CD-with-Jenkins-and-ArgoCD.git'
                 // git branch: 'master', credentialsId: 'github-access-tokon', url: 'https://github.com/njokuifeanyigerald/python-CI-CD-with-Jenkins-and-ArgoCD.git'
             }   
             post{
