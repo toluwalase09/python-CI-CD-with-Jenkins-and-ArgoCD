@@ -21,7 +21,7 @@ pipeline {
         stage('Deploy package') {
           steps {
             withAWS(credentials: 'lase', region: 'eu-west-2') {
-              s3Upload(bucket: 'python-jenkins', workingDir: 'dist', file: '**')
+              s3Upload(bucket: 'python-jenkins', workingDir: 'dist', file: '/*')
             }
           }
         }
