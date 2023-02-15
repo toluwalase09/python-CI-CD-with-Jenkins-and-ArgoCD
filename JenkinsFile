@@ -15,17 +15,17 @@ pipeline {
       
         stage('Build package') {
             steps {
-                timeout(time: 2, unit: 'MINUTES') {
+                timeout(time: 1, unit: 'MINUTES', failBuild: false) {
                     sh 'python3 main.py'
                 }
             }
         }
         stage('Deploy package') {
-            steps {
-                withCredentials([sshUserPrivateKey(credentialsId: 'my-ssh-creds', keyFileVariable: 'SSH_KEY', passphraseVariable: '', usernameVariable: 'SSH_USER')]) {
-                    sh 'scp -i $SSH_KEY dist/* $SSH_USER@my-server:/path/to/destination'
-                }
+          steps {
+            withAWS(credentials: 'lase', region: 'eu-west-2') {
+              sh 'aws s3 cp dist/* s3://my-bucket/path/to/destination'
             }
+          }
         }
     }
 }
