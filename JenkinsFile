@@ -15,7 +15,7 @@ pipeline {
       
         stage('Build package') {
             steps {
-                timeout(time: 30, unit: 'MINUTES') {
+                timeout(time: 1, unit: 'MINUTES') {
                     catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                         sh 'python3 main.py'
                     }
@@ -25,7 +25,7 @@ pipeline {
         stage('Deploy package') {
           steps {
             withAWS(credentials: 'lase', region: 'eu-west-2') {
-              sh 'aws s3 cp dist/* s3://my-bucket/path/to/destination'
+              sh 'aws s3 cp dist/* s3://python-jenkins/'
             }
           }
         }
