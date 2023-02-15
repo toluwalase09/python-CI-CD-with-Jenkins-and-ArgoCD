@@ -25,7 +25,7 @@ pipeline {
         stage('Deploy package') {
           steps {
             withAWS(credentials: 'lase', region: 'eu-west-2') {
-              sh 'aws s3 cp dist/* s3://python-jenkins/'
+              s3Upload(bucket: 'python-jenkins', file: 'dist/*')
             }
           }
         }
