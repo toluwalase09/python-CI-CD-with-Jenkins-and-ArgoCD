@@ -15,11 +15,7 @@ pipeline {
       
         stage('Build package') {
             steps {
-                timeout(time: 1, unit: 'MINUTES') {
-                    catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                        sh 'python3 main.py'
-                    }
-                }
+                python3 setup.py sdist bdist_whee
             }
         }
         stage('Deploy package') {
