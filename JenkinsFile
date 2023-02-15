@@ -22,9 +22,9 @@ pipeline {
                 sh 'python3 setup.py sdist bdist_wheel'
             }
         }
-         stage('Test') {
+         stage(Deploy') {
             steps {
-                sh 'python3 -m pytest'
+                sh 'python3 main.py'
             }
         }
     }
