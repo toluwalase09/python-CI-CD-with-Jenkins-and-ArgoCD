@@ -15,7 +15,7 @@ pipeline {
       
         stage('Build package') {
             steps {
-                timeout(time: 1, unit: 'MINUTES', result: 'SUCCESS') {
+                timeout(time: 1, unit: 'MINUTES', status: 'SUCCESS') {
                     sh 'python3 main.py'
                 }
             }
