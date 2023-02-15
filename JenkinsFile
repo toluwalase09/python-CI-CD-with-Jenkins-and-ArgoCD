@@ -15,13 +15,17 @@ pipeline {
       
         stage('Build package') {
             steps {
+                sh 'python -m venv env'
+                sh '. env/bin/activate'
+                sh 'pip install -U pip'
+                sh 'pip install -r requirements.txt'
                 sh 'python3 setup.py sdist bdist_wheel'
             }
         }
         stage('Deploy package') {
           steps {
             withAWS(credentials: 'lase', region: 'eu-west-2') {
-              s3Upload(bucket: 'python-jenkins', workingDir: 'dist', file: '/*')
+              s3Upload(bucket: 'python-jenkins', workingDir: 'dist', file: '**')
             }
           }
         }
