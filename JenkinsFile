@@ -22,12 +22,10 @@ pipeline {
                 sh 'python3 setup.py sdist bdist_wheel'
             }
         }
-        stage('Deploy package') {
-          steps {
-            withAWS(credentials: 'lase', region: 'eu-west-2') {
-              s3Upload(bucket: 'python-jenkins', workingDir: 'dist', file: '**')
+         stage('Test') {
+            steps {
+                sh 'python3 -m pytest'
             }
-          }
         }
     }
 }
