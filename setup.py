@@ -1,4 +1,5 @@
 from setuptools import setup, find_packages
+import shutil
 
 with open('README.md', 'r') as f:
     long_description = f.read()
@@ -23,3 +24,6 @@ setup(
     },
     install_requires=install_requires
 )
+
+# Rename the folder
+shutil.move('dist/myapp-1.0.0-py3-none-any.whl', 'dist/myapp-1.0.0-py3-none-any.dist-info')
