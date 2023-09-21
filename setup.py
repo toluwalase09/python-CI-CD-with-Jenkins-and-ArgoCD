@@ -10,8 +10,8 @@ with open('requirements.txt', 'r') as f:
 setup(
     name='myapp',
     version='1.0.0',
-    author='Toluwalase Adedotun',
-    author_email='toluadedotun@gmail.com',
+    author='CloudBoosta',
+    author_email='Clougboosta@gmail.com',
     description='A brief description of your application',
     long_description=long_description,
     long_description_content_type='text/markdown',
